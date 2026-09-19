@@ -35,7 +35,7 @@ npx serve
 
 ## 에셋
 
-- `assets/hero.webp` — 히어로 배경 강사 사진
+- `assets/hero.png` — 히어로 배경 강사 사진
 
 ## 배포 (GitHub Pages)
 
