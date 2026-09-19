@@ -1,0 +1,11 @@
+# dev / preview helpers (not part of the site)
+.claude/
+server.mjs
+node_modules/
+
+# design handoff source (prototype reference, not deployed)
+design_handoff_kimhyungbeom_landing/
+
+# OS
+Thumbs.db
+.DS_Store

@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>김형범 — AI·디지털 활용 강사</title>
+<meta name="description" content="생성형 AI, 스마트폰, 영상 제작을 연결해 배운 내용을 실제 결과물로 완성하는 실습형 교육을 진행하는 AI·디지털 활용 강사 김형범.">
+
+<!-- Archivo: DS heading/body font (Latin). Pretendard: Korean glyphs at matching weights. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+
+<style>
+  /* ══════════════════════════════════════════════════════════════
+     Modernist design tokens — source: _ds/…/styles.css
+     ════════════════════════════════════════════════════════════ */
+  :root {
+    --color-bg: #f3f2f2;
+    --color-surface: #eae9e9;
+    --color-text: #201e1d;
+    --color-accent: #ec3013;
+    --color-accent-2: #e15b47;
+    --color-divider: color-mix(in srgb, #201e1d 40%, transparent);
+
+    --color-accent-600: #dd2b0f;
+    --color-accent-700: #ae1800;
+    --color-accent-800: #7c1405;
+    --color-accent-100: #fff2ef;
+
+    /* Archivo for Latin, Pretendard for Korean, then system fallbacks. */
+    --font-heading: "Archivo", "Pretendard Variable", Pretendard, system-ui, sans-serif;
+    --font-heading-weight: 800;
+    --font-body: "Archivo", "Pretendard Variable", Pretendard, system-ui, sans-serif;
+
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-6: 24px;
+    --space-8: 32px;
+
+    --radius-md: 0px;
+
+    --shadow-sm: 0 1px 2px color-mix(in srgb, #2d2b2b 14%, transparent);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.55;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    font-weight: var(--font-heading-weight);
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+    margin: 0;
+  }
+
+  a { color: var(--color-accent); text-underline-offset: 3px; }
+  a:hover { color: var(--color-accent-700); }
+  img { display: block; max-width: 100%; }
+
+  :focus { outline: none; }
+  :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+  ::selection { background: color-mix(in srgb, var(--color-accent) 30%, transparent); }
+
+  /* — tags — */
+  .tag {
+    display: inline-flex; align-items: center; font-size: 11px;
+    letter-spacing: 0.02em; padding: 3px 10px; border-radius: 0;
+  }
+  .tag-outline { border: 1px solid var(--color-accent); color: var(--color-accent); }
+
+  /* — buttons — */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    cursor: pointer; text-decoration: none;
+    font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+    font-size: 14px; line-height: 1.2; color: var(--color-text);
+    background: transparent; border: 1px solid transparent;
+    padding: var(--space-2) calc(var(--space-3) * 1.2); border-radius: 0;
+  }
+  .btn-primary { background: var(--color-accent); color: var(--color-bg); }
+  .btn-primary:hover { background: var(--color-accent-600); color: var(--color-bg); }
+  .btn-primary:active { background: var(--color-accent-700); }
+  .btn-secondary { border-color: var(--color-divider); }
+  .btn-secondary:hover { background: color-mix(in srgb, var(--color-text) 7%, transparent); }
+  .btn-secondary:active { background: color-mix(in srgb, var(--color-text) 14%, transparent); }
+
+  /* — cards — */
+  .card {
+    display: flex; flex-direction: column; gap: var(--space-2);
+    padding: var(--space-3); border-radius: 0; background: var(--color-surface);
+  }
+  .card-kicker { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); }
+  .card-title {
+    font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+    font-size: 17px; line-height: 1.2;
+  }
+  .card-body { margin: 0; font-size: 13px; opacity: 0.8; flex: 1; }
+  .elev-sm { box-shadow: var(--shadow-sm); }
+
+  /* — navigation — */
+  .nav {
+    display: flex; align-items: center; gap: var(--space-4);
+    padding: var(--space-3) clamp(20px, 5vw, 72px);
+    border-bottom: 2px solid var(--color-divider);
+    position: sticky; top: 0; z-index: 20;
+    background: color-mix(in srgb, var(--color-bg) 92%, transparent);
+    backdrop-filter: saturate(1.1) blur(8px);
+  }
+  .nav-brand {
+    font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+    font-size: 18px; margin-right: auto;
+  }
+  .nav a { color: inherit; text-decoration: none; font-size: 14px; }
+  .nav a:hover, .nav a[aria-current='page'] { color: var(--color-accent); }
+  .nav-links { display: flex; align-items: center; gap: var(--space-4); }
+
+  /* — tables — */
+  .table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .table th {
+    text-align: left; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: color-mix(in srgb, var(--color-text) 60%, transparent);
+    padding: var(--space-2); border-bottom: 2px solid var(--color-divider);
+  }
+  .table td { padding: var(--space-2); border-bottom: 1px solid var(--color-divider); }
+  .table tbody tr:hover { background: color-mix(in srgb, var(--color-text) 4%, transparent); }
+
+  /* ══════════════════════════════════════════════════════════════
+     Page layout
+     ════════════════════════════════════════════════════════════ */
+  .wrap { max-width: 1200px; margin: 0 auto; padding-inline: clamp(20px, 5vw, 72px); }
+
+  hr.rule { height: 2px; border: 0; margin: 0; background: var(--color-divider); }
+
+  /* Hero */
+  .hero {
+    position: relative; min-height: 660px;
+    display: flex; align-items: center; overflow: hidden;
+  }
+  .hero-photo {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; object-position: 70% 28%;
+    background: var(--color-surface);
+  }
+  .hero-scrim {
+    position: absolute; inset: 0;
+    background: linear-gradient(100deg,
+      var(--color-bg) 0%,
+      var(--color-bg) 24%,
+      color-mix(in srgb, var(--color-bg) 88%, transparent) 40%,
+      color-mix(in srgb, var(--color-bg) 45%, transparent) 58%,
+      color-mix(in srgb, var(--color-bg) 8%, transparent) 76%,
+      transparent 92%);
+  }
+  .hero-inner { position: relative; width: 100%; padding-block: 80px; }
+  .hero-copy { max-width: 560px; }
+  .hero h1 {
+    font-weight: 800; font-size: clamp(38px, 5.2vw, 64px);
+    line-height: 1.08; letter-spacing: -0.02em; margin: 0;
+  }
+  .hero h1 span { display: block; }
+  .hero h1 .accent { color: var(--color-accent); }
+  .hero-sub {
+    font-size: 17px; line-height: 1.65; max-width: 52ch; margin: 24px 0 0;
+    color: color-mix(in srgb, var(--color-text) 78%, transparent);
+  }
+  .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
+  .hero-cta .btn { font-size: 15px; padding: 14px 22px; }
+  .hero-cta .btn-secondary { background: var(--color-bg); }
+  .hero-meta { display: flex; align-items: center; gap: 12px; margin-top: 36px; }
+  .hero-meta .line { width: 24px; height: 2px; background: var(--color-divider); }
+  .hero-meta .txt { font-size: 13px; color: color-mix(in srgb, var(--color-text) 70%, transparent); }
+
+  /* Feature grid */
+  .features { padding-bottom: 80px; margin-top: 1px; }
+  .features-grid {
+    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1px; border: 1px solid var(--color-divider); background: var(--color-divider);
+  }
+  @media (max-width: 900px) { .features-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 480px) { .features-grid { grid-template-columns: 1fr; } }
+  .feature {
+    background: var(--color-bg); padding: 28px 24px;
+    display: flex; flex-direction: column; gap: 16px; position: relative;
+  }
+  .feature .mark {
+    position: absolute; top: 0; left: 0; width: 10px; height: 10px;
+    background: var(--color-accent);
+  }
+  .feature .icon { color: var(--color-text); }
+  .feature .row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .feature .label {
+    font-family: var(--font-heading); font-weight: 800; font-size: 17px; letter-spacing: -0.01em;
+  }
+  .feature .chevron { flex: none; color: var(--color-accent); }
+
+  /* Split sections (about / courses / cases / career) */
+  .split {
+    display: grid; gap: 32px clamp(24px, 4vw, 72px);
+    padding-block: 80px;
+  }
+  .split.about { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); }
+  .split.label-col { grid-template-columns: minmax(0, 200px) minmax(0, 1fr); }
+  .split > .tag { align-self: start; }
+
+  .about h2 {
+    font-size: clamp(24px, 2.6vw, 32px); letter-spacing: -0.015em; margin: 0 0 16px;
+  }
+  .about p {
+    font-size: 15.5px; line-height: 1.65; max-width: 60ch; margin: 0;
+    color: color-mix(in srgb, var(--color-text) 78%, transparent);
+  }
+
+  /* Courses list */
+  .course {
+    display: grid; grid-template-columns: minmax(48px, 64px) minmax(0, 1fr);
+    gap: 16px clamp(20px, 3vw, 48px); align-items: baseline;
+    padding: 24px 0; border-top: 2px solid var(--color-divider);
+  }
+  .course .num {
+    font-family: var(--font-heading); font-weight: 800; font-size: 14px; margin: 0;
+    color: var(--color-text);
+  }
+  .course h3 {
+    font-family: var(--font-heading); font-weight: 800; font-size: 20px;
+    letter-spacing: -0.01em; margin: 0 0 8px;
+  }
+  .course .desc {
+    font-size: 15px; line-height: 1.6; margin: 0;
+    color: color-mix(in srgb, var(--color-text) 78%, transparent);
+  }
+
+  /* Cases grid */
+  .cases-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;
+  }
+
+  #career { padding-bottom: 88px; }
+
+  /* Contact (close) */
+  .close { background: var(--color-accent); color: var(--color-bg); }
+  .close .inner {
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+    gap: 24px; padding-block: 80px;
+  }
+  .close h2 {
+    font-size: clamp(28px, 3.4vw, 40px); letter-spacing: -0.015em; margin: 0;
+    color: var(--color-bg);
+  }
+  .close .contacts { display: flex; flex-direction: column; gap: 8px; font-size: 15px; }
+  .close .contacts a { color: var(--color-bg); text-decoration: none; }
+  .close .contacts a:hover { text-decoration: underline; color: var(--color-bg); }
+
+  /* — responsive — */
+  @media (max-width: 760px) {
+    .nav-links { gap: 14px; font-size: 13px; }
+    .nav-links a { font-size: 13px; }
+    .hero { min-height: 560px; }
+    .hero-scrim {
+      background: linear-gradient(180deg,
+        color-mix(in srgb, var(--color-bg) 78%, transparent) 0%,
+        color-mix(in srgb, var(--color-bg) 70%, transparent) 55%,
+        color-mix(in srgb, var(--color-bg) 88%, transparent) 100%);
+    }
+    .split.about,
+    .split.label-col { grid-template-columns: 1fr; }
+    .split { padding-block: 56px; }
+    .close .inner { padding-block: 56px; }
+  }
+
+  @media (max-width: 520px) {
+    .nav { gap: 10px; }
+    .nav-links { flex-wrap: wrap; gap: 10px 14px; }
+    .course { grid-template-columns: 40px minmax(0, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ Nav ═══════════════════ -->
+<nav class="nav">
+  <span class="nav-brand">김형범</span>
+  <div class="nav-links">
+    <a href="#about">강사 소개</a>
+    <a href="#courses">대표 강의</a>
+    <a href="#cases">강의 사례</a>
+    <a href="#career">경력</a>
+    <a href="#contact">문의</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════ Hero ═══════════════════ -->
+<section class="hero">
+  <!-- Drop the instructor photo at assets/hero.jpg (or change the src). If it
+       fails to load, the surface-colored fallback shows instead of a broken icon. -->
+  <img class="hero-photo" src="assets/hero.webp" alt="강의 중인 강사 김형범"
+       onerror="this.style.display='none'">
+  <div class="hero-scrim"></div>
+  <div class="wrap hero-inner">
+    <div class="hero-copy">
+      <span class="tag tag-outline" style="margin-bottom:20px;background:var(--color-bg)">AI·디지털 활용 강사</span>
+      <h1>
+        <span>배우는 AI에서,</span>
+        <span class="accent">써먹는 AI로</span>
+      </h1>
+      <p class="hero-sub">생성형 AI, 스마트폰, 영상 제작을 연결해 배운 내용을 실제 결과물로 완성하는 실습형 교육을 진행합니다.</p>
+      <div class="hero-cta">
+        <a href="#courses" class="btn btn-primary">강의 프로그램 보기 →</a>
+        <a href="#contact" class="btn btn-secondary">출장 문의</a>
+      </div>
+      <div class="hero-meta">
+        <span class="line"></span>
+        <span class="txt">영화감독 · 미디어교육자 · AI 디지털 강사</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ Feature grid ═══════════════════ -->
+<section class="wrap features">
+  <div class="features-grid">
+    <div class="feature">
+      <span class="mark"></span>
+      <div class="icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 0-4 4v1H7a3 3 0 0 0-3 3v1a3 3 0 0 0 0 6v1a3 3 0 0 0 3 3h1"/><path d="M12 2a4 4 0 0 1 4 4v1h1a3 3 0 0 1 3 3v1a3 3 0 0 1 0 6v1a3 3 0 0 1-3 3h-1"/><path d="M12 6v16"/><circle cx="7" cy="14" r="1"/><circle cx="17" cy="14" r="1"/></svg></div>
+      <div class="row">
+        <span class="label">생성형 AI 활용</span>
+        <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </div>
+    </div>
+    <div class="feature">
+      <span class="mark"></span>
+      <div class="icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M12 18h.01"/></svg></div>
+      <div class="row">
+        <span class="label">스마트폰 디지털 교육</span>
+        <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </div>
+    </div>
+    <div class="feature">
+      <span class="mark"></span>
+      <div class="icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4V8z"/></svg></div>
+      <div class="row">
+        <span class="label">AI 콘텐츠 제작</span>
+        <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </div>
+    </div>
+    <div class="feature">
+      <span class="mark"></span>
+      <div class="icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="4"/></svg></div>
+      <div class="row">
+        <span class="label">업무 활용과 자동화</span>
+        <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ═══════════════════ About ═══════════════════ -->
+<section id="about" class="wrap split about">
+  <span class="tag tag-outline">강사 소개</span>
+  <div>
+    <h2>영화 현장에서 교육 현장으로</h2>
+    <p>단국대학교 연극영화과를 졸업하고, 장편영화 [어떤가족]의 제작·연출·극본을 맡았습니다. 방송국 외주 PD로도 활동했으며, 이후 생성형 AI와 스마트폰 영상 제작을 연결하는 실습형 교육으로 활동 영역을 넓혔습니다. AI프롬프트전문가, ADsP, 디지털윤리지도사 등 자격을 바탕으로 학교·기관·기업에서 AI·디지털 활용 강의를 진행하고 있습니다.</p>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ═══════════════════ Courses ═══════════════════ -->
+<section id="courses" class="wrap split label-col">
+  <span class="tag tag-outline">대표 강의</span>
+  <div>
+    <div class="course">
+      <p class="num">01</p>
+      <div>
+        <h3>1인 영상감독의 시대, AI 영상 디렉터 실무 과정</h3>
+        <p class="desc">청년취업사관학교 강서캠퍼스 · 2026.07</p>
+      </div>
+    </div>
+    <div class="course">
+      <p class="num">02</p>
+      <div>
+        <h3>교사 대상 생성형 AI 활용 연수</h3>
+        <p class="desc">강원생활과학고 · 2026.04</p>
+      </div>
+    </div>
+    <div class="course">
+      <p class="num">03</p>
+      <div>
+        <h3>중장년 AI 리터러시 및 스마트폰 미디어 활용</h3>
+        <p class="desc">강동 50+센터 · 2026.06</p>
+      </div>
+    </div>
+    <div class="course">
+      <p class="num">04</p>
+      <div>
+        <h3>AI 영화 만들기 (AI 이미지 및 스토리텔링 융합)</h3>
+        <p class="desc">중구 동화동 주민센터 · 2026.07</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ═══════════════════ Cases ═══════════════════ -->
+<section id="cases" class="wrap split label-col">
+  <span class="tag tag-outline">강의 사례</span>
+  <div class="cases-grid">
+    <div class="card elev-sm">
+      <div class="card-kicker">2025</div>
+      <div class="card-title">디지털배움터 강사</div>
+      <p class="card-body">AI 활용 및 리터러시 — 서울시 · 에이럭스</p>
+    </div>
+    <div class="card elev-sm">
+      <div class="card-kicker">2025</div>
+      <div class="card-title">구로창의인재교육원 상주강사</div>
+      <p class="card-body">구로구 · 이앤오즈</p>
+    </div>
+    <div class="card elev-sm">
+      <div class="card-kicker">2023</div>
+      <div class="card-title">교복입은예술가 (영화)</div>
+      <p class="card-body">광남중학교 · 서라벌중학교 / 한국예술종합학교</p>
+    </div>
+    <div class="card elev-sm">
+      <div class="card-kicker">2024</div>
+      <div class="card-title">진로 강사 (영상 숏츠 제작)</div>
+      <p class="card-body">서울동성고등학교</p>
+    </div>
+    <div class="card elev-sm">
+      <div class="card-kicker">2021</div>
+      <div class="card-title">제4회 KPSFF 패라르떼 영화교육</div>
+      <p class="card-body">덕양행신복지관 / 대한민국패럴스마트폰영화제</p>
+    </div>
+    <div class="card elev-sm">
+      <div class="card-kicker">2019</div>
+      <div class="card-title">종로 문예투어리즘 영상제작</div>
+      <p class="card-body">종로 · 종로사회적경제네트워크</p>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ═══════════════════ Career ═══════════════════ -->
+<section id="career" class="wrap split label-col">
+  <span class="tag tag-outline">경력</span>
+  <table class="table">
+    <thead>
+      <tr><th style="width:140px">기간</th><th>내용</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>2026~</td><td>AI·디지털 활용 강사 — 학교·기관·기업 출강</td></tr>
+      <tr><td>2015</td><td>장편영화 [어떤가족] 개봉 — 제작·연출·극본</td></tr>
+      <tr><td>2010~2012</td><td>㈜폴리지 재직 — 방송국 외주 PD</td></tr>
+      <tr><td>2004</td><td>단편영화 [삼십연] 서울독립영화제 단편경쟁부문 출품 — 제작·연출·극본</td></tr>
+      <tr><td>2000~2004</td><td>단국대학교 연극영화과</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<hr class="rule">
+
+<!-- ═══════════════════ Contact ═══════════════════ -->
+<section id="contact" class="close">
+  <div class="wrap inner">
+    <h2>강의·출장 교육 문의</h2>
+    <div class="contacts">
+      <a href="mailto:pan751229@gmail.com">pan751229@gmail.com</a>
+      <a href="tel:01084993006">010-8499-3006</a>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
